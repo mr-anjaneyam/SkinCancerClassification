@@ -103,7 +103,7 @@
 				6:'Vascular lesions',
 			}
             async function loadModel() {
-                const model = await tf.loadLayersModel('final_model_kaggle_version1/model.json');
+                const model = await tf.loadLayersModel('json_model/model.json');
                 console.log('Model loaded');
                 document.querySelector('.progress-bar').style.display = 'none';
                 return model;
