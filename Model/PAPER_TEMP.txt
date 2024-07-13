@@ -1,0 +1,41 @@
+ABSTRACT
+Skin cancer is the most common form of cancer globally. It is the 17th most common cancer with 2-3 million Non melanoma and 132,000 melanoma cases worldwide. skin cancer is due to the abnormal growth of skin cells, mostly developed due to excessive exposure to ultraviolet rays. 
+Early detection and accurate classification of skin lesions are crucial for effective treatment and improved patient outcomes. Due to the challenges dermatologists encounter in accurately diagnosing skin cancer, there is a need to develop an automated and efficient diagnostic system. This study presents an automated system for classifying skin lesions into seven different types of skin cancer using a Convolutional Neural Network(CNN) model, which is trained on HAM10000 dataset, which includes 10,015 dermatoscopic images of different skin lesions. Our approach leverages the MobileNet architecture, known for it's efficiency and effectiveness in image classification tasks. The MobileNet model is pre-trained on vast ImageNet dataset and is fine tuned on HAM10000 dataset to specialize in skin lesion classification employing Transfer learning. The model achieved an overall accuracy of XX% across the seven skin cancer classes, whereas top2 and top3 accuracy of YY% and ZZ%, respectively. The trained model achieved promising results, demonstrating its potential as a reliable tool for assisting dermatologists in the early detection of skin cancer.
+
+
+KEYWORDS: Skin Cancer, Lesion Classification, CNN, MobileNet, HAM10000, ImageNet.
+
+
+
+INTRODUCTION
+
+METHODOLOGY
+
+-> DATASET
+
+
+-> DATA-PREPROCESSING
+
+
+-> DATA AUGMENTATION
+
+
+-> TRAINING MODEL & ARCHITECTURE
+
+
+-> EVALUATION METRICS
+
+
+
+RESULTS
+-> HARDWARE CONFIGS
+-> DATASET ANALYSIS
+-> MODEL EVALUATION
+-> CONFUSION MATRIX
+-> LOSS AND ACCURACY CURVES
+
+
+
+CONCLUSION
+
+REFERENCES
