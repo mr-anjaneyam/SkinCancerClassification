@@ -1,6 +1,3 @@
-<!-- this style seems good -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,16 +26,16 @@
         </div>
 
         <div class="w-full md:w-1/2 text-center">
-            <h1 class="text-3xl font-oswald font-semibold mb-4">Skin Lesion Analyzer</h1>
+            <h1 id="model-status" class="text-3xl font-oswald font-bold mb-4">Model Loading...</h1>
 
-            <div id="loading-indicator" class="text-white mb-4 hidden">
+            <div id="loading-indicator" class="text-white mb-4">
                 <i class="fa fa-spinner fa-spin text-teal-400 text-3xl"></i>
-                <p>Model is loading...</p>
+                <p>Analyzing...</p>
             </div>
 
-            <div class="w-3/4 bg-gray-800 rounded-full h-3 mx-auto mb-6">
-                <div id="myBar" class="bg-white h-full rounded-full" style="width: 0%;"></div>
-            </div>
+            <!-- <div class="w-3/4 bg-gray-800 rounded-full h-1 mx-auto mb-6">
+                <div id="model-load-bar" class="bg-white h-full rounded-full" style="width: 0%;"></div>
+            </div> -->
 
             <ul id='prediction-list' class='space-y-2'></ul>
         </div>
@@ -52,11 +49,10 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
 
     <script>
-        Classes = {
+        const Classes = {
             0: 'Actinic Keratoses',
             1: 'Basal Cell Carcinoma',
             2: 'Benign lesions of the keratosis',
@@ -67,8 +63,11 @@
         };
 
         async function loadModel() {
+            document.getElementById('model-status').textContent = 'Model Loading...';
+            document.getElementById('loading-indicator').classList.remove('hidden');
             const model = await tf.loadLayersModel('../json_model/model.json');
             console.log('Model loaded');
+            document.getElementById('model-status').textContent = 'Model Loaded';
             document.getElementById('loading-indicator').classList.add('hidden');
             return model;
         }
@@ -101,7 +100,13 @@
                 bar.className = 'w-full bg-gray-700 rounded-full mt-2';
                 const barFill = document.createElement('div');
                 barFill.className = 'bg-blue-600 h-2 rounded-full';
-                barFill.style.width = `${percentage}%`;
+                barFill.style.width = `0%`; // Start with zero width
+
+                // Animate the bar fill width
+                setTimeout(() => {
+                    barFill.style.width = `${percentage}%`;
+                }, 100);
+
                 bar.appendChild(barFill);
 
                 listItem.appendChild(bar);
@@ -126,9 +131,10 @@
         });
 
         // Load the model when the page loads
-        window.onload = () => {
-            loadModel();
+        window.onload = async () => {
+            await loadModel();
         };
     </script>
 </body>
+
 </html>
