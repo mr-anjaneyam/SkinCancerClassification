@@ -21,19 +21,18 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #f5f5f5;
             font-family: 'Roboto', sans-serif;
-            color: #fff;
+            color: #333;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: #fff;
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             animation: fadeIn 1.5s ease-in forwards;
         }
 
@@ -77,34 +76,28 @@
         }
 
         .results-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .upload-button {
-            background: #ff4b2b;
-            background: -webkit-linear-gradient(to right, #ff416c, #ff4b2b);
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            background: #333;
+            color: #fff;
             border: none;
         }
 
         .bottom-buttons button {
-            background: #2193b0;
-            background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
-            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            background: #666;
+            color: #fff;
             border: none;
         }
 
         .bottom-buttons button:hover {
-            background: #6dd5ed;
-            background: -webkit-linear-gradient(to right, #2193b0, #6dd5ed);
-            background: linear-gradient(to right, #2193b0, #6dd5ed);
+            background: #555;
         }
 
         .results-bar {
-            background: #21d4fd;
-            background: -webkit-linear-gradient(to right, #b721ff, #21d4fd);
-            background: linear-gradient(to right, #b721ff, #21d4fd);
+            background: #1d4ed8;
         }
     </style>
 </head>
@@ -114,7 +107,7 @@
     <div class="container text-center p-10">
 
         <!-- Title -->
-        <h1 class="text-5xl font-bold mb-6">Skin Cancer Classification</h1>
+        <h1 class="text-4xl font-bold mb-6">Skin Cancer Classification</h1>
 
         <!-- Content Wrapper -->
         <div class="w-full flex flex-wrap items-start justify-center">
@@ -125,7 +118,7 @@
                     <img id="selected-image" class="rounded-lg shadow-lg transition-transform duration-500 ease-in-out transform hover:scale-105" src="assets/samplepic.jpg" alt="Image for analysis">
                 </div>
                 <div>
-                    <button class="upload-button text-white py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 pulse-button" onclick="document.getElementById('image-selector').click()">
+                    <button class="upload-button py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 pulse-button" onclick="document.getElementById('image-selector').click()">
                         <i class='fas fa-camera mr-2'></i><b>Upload Skin Lesion</b>
                     </button>
                 </div>
@@ -136,7 +129,7 @@
 
                 <!-- Loading Indicator -->
                 <div class="text-center mb-4 hidden" id="loading-indicator">
-                    <i class="fa fa-spinner fa-spin text-white text-3xl"></i>
+                    <i class="fa fa-spinner fa-spin text-3xl"></i>
                     <p>Model is loading...</p>
                 </div>
 
@@ -153,13 +146,13 @@
 
                 <!-- Bottom Buttons -->
                 <div class="flex justify-between bottom-buttons">
-                    <button class="text-white py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
+                    <button class="py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
                         <i class="fas fa-info-circle mr-2"></i>Info
                     </button>
-                    <button class="text-white py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
+                    <button class="py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
                         <i class="fas fa-question-circle mr-2"></i>Help
                     </button>
-                    <button class="text-white py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
+                    <button class="py-3 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-75 button-hover">
                         <i class="fas fa-envelope mr-2"></i>Contact
                     </button>
                 </div>
@@ -178,7 +171,7 @@
 
     <!-- JavaScript Code -->
     <script>
-        Classes = {
+        const Classes = {
             0: 'Actinic Keratoses',
             1: 'Basal Cell Carcinoma',
             2: 'Benign lesions of the keratosis',
@@ -189,6 +182,7 @@
         };
 
         async function loadModel() {
+            document.getElementById('loading-indicator').classList.remove('hidden');
             const model = await tf.loadLayersModel('../json_model/model.json');
             console.log('Model loaded');
             document.getElementById('loading-indicator').classList.add('hidden');

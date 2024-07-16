@@ -7,154 +7,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Use the power of Machine Learning to diagnose Skin Lesions.">
 
-    <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="css/w3.css">
-    <link rel="stylesheet" href="css/skin.css">
-
-    <!-- Link to Font Awesome icons -->
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css' integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
-
-    <!-- Link to fonts from Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css'
+        integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-
-    <link rel="shortcut icon" type="image/png" href="robotfavicon.png">
-
-    <style>
-        html, body, h2, h3, h4, p, h5, li {
-            font-family: Roboto, sans-serif
-        }
-    </style>
 </head>
 
-<body class="bground-color">
+<body class="bg-black font-roboto h-screen flex flex-col items-center justify-center text-white">
 
-    <div class="w3-content" style="max-width:960px">
+    <a class="text-4xl text-center hover:text-gray-500 font-mono mb-8" href="https://skincancer.srianjaneyam.tech">SKIN
+        CANCER CLASSIFICATION</a>
 
-        <!-- 1. HOME PAGE -->
-        <div class="tabbed w3-animate-opacity w3-white" id="home">
+    <div class="w-full max-w-5xl bg-gray-900 rounded-lg shadow-lg p-8 flex flex-col md:flex-row items-center">
 
-            <!-- Top Bar -->
-            <div class='w3-center'>
-                <p class="space-letters-large w3-small w3-tag bground-color w3-text-teal w3-border w3-round">
-                    <a class="change-size" href="faq.html"><b>About</b></a>
-                </p>
-            </div>
-
-            <!-- Front page image -->
-            <div class="w3-center w3-padding-bottom">
-                <img id="selected-image" class="w3-round adjust-image" src="assets/samplepic.jpg" height="250" alt="Image for analysis">
-            </div>
-
-            <!-- Button -->
-            <div id="btnn" class="w3-center">
-                <button class="w3-btn w3-deep-orange w3-hover-blue w3-round w3-margin-bottom adjust-spacing btn-font w3-padding w3-space-letters w3-text-white" onclick="document.getElementById('image-selector').click()"><i class='fas fa-camera w3-padding-right' style='font-size:15px'></i>
-                    <b>Skin Lesion Analyzer</b></button>
-            </div>
-
-            <!-- Loading Indicator -->
-            <div class="w3-center">
-                <div class="progress-bar w3-text-teal space-letters">
-                    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-                    <p>Model is loading...</p>
-                </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="w3-light-grey side-margin w3-opacity">
-                <div id="myBar" class="w3-container w3-blue" style="height:5px;width:100%"></div>
-            </div>
-
-            <!-- Results Box -->
-            <div class="w3-center w3-border add-margin side-margin w3-round w3-sand text-color space-letters bottom-margin dont-break-out">
-                <p>Results</p>
-                <ol class='w3-left-align text-color' id='prediction-list'></ol>
-            </div>
-
-            <!-- Bottom Bar -->
-            <div class='w3-center w3-padding-bottom'>
-                <p class="space-letters">
-                    <a class="w3-small w3-hover-text-deep-orange text-color" href="https://srianjaneyam.tech/">
-                        <b>srianjaneyam.tech</b></a>
-                </p>
-            </div>
-        </div><!-- END OF HOME PAGE -->
-
-        <!-- Hidden File Input -->
-        <div class="hide">
-            <input id="image-selector" type="file" accept="image/*">
+        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:mr-8 flex flex-col items-center">
+            <img id="selected-image" class="rounded-lg shadow-md mx-auto max-w-full" src="/assets/samplepic.jpg"
+                alt="Image for analysis">
+            <button
+                class="mt-4 bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-full flex items-center  font-bold"
+                onclick="document.getElementById('image-selector').click()">
+                <i class='fas fa-camera mr-2'></i> Upload Skin Lesion
+            </button>
+            <input id="image-selector" type="file" accept="image/*" class="hidden">
         </div>
 
-        <!-- Load jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <div class="w-full md:w-1/2 text-center">
+            <h1 id="model-status" class="text-3xl font-oswald font-bold mb-4">Model Loading...</h1>
 
-        <!-- Load TensorFlow.js -->
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
+            <div id="loading-indicator" class="text-white mb-4">
+                <i class="fa fa-spinner fa-spin text-teal-400 text-3xl"></i>
+                <p>Analyzing...</p>
+            </div>
 
-        <!-- JavaScript Code -->
-        <script>
-			Classes = {
-				0:'Actinic Keratoses', 
-				1:'Basal Cell Carcinoma', 
-				2:'Benign lesions of the keratosis', 
-				3:'Dermatofibroma ', 
-				4:'Melanoma', 
-				5:'Melanocytic nevi', 
-				6:'Vascular lesions',
-			}
-            async function loadModel() {
-                const model = await tf.loadLayersModel('json_model/model.json');
-                console.log('Model loaded');
-                document.querySelector('.progress-bar').style.display = 'none';
-                return model;
-            }
+            <ul id='prediction-list' class='space-y-2 text-left'></ul>
+        </div>
 
-            async function classifyImage(model, imgElement) {
-                const image = tf.browser.fromPixels(imgElement);
-                const resizedImage = tf.image.resizeBilinear(image, [224, 224]);
-                const batchedImage = resizedImage.expandDims(0);
-                const preprocessedImage = tf.tidy(() => {
-                    return batchedImage.toFloat().div(tf.scalar(127.5)).sub(tf.scalar(1));
-                });
+    </div>
 
-                const predictions = model.predict(preprocessedImage);
-                const predictionArray = await predictions.array();
-                displayPredictions(predictionArray);
-            }
+    <div class="mt-8 flex space-x-4">
+        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-info-circle mr-2"></i> Info</a>
+        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-question-circle mr-2"></i> Help</a>
+        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> Contact</a>
+    </div>
 
-            function displayPredictions(predictionArray) {
-                const predictionList = document.getElementById('prediction-list');
-                predictionList.innerHTML = ''; // Clear previous predictions
+    <footer class="mt-8 text-center text-gray-500">
+        <p><a href="https://srianjaneyam.tech" class="text-white hover:text-gray-400">srianjaneyam.tech</a></p>
+        <p>&copy; 2024 All rights reserved</p>
+    </footer>
 
-                predictionArray[0].forEach((prediction, index) => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = `${Classes[index]}: ${prediction.toFixed(4)}`;
-                    predictionList.appendChild(listItem);
-                });
-            }
 
-            document.getElementById('image-selector').addEventListener('change', async event => {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-
-                reader.onload = async () => {
-                    const imgElement = document.getElementById('selected-image');
-                    imgElement.src = reader.result;
-                    imgElement.onload = async () => {
-                        const model = await loadModel();
-                        classifyImage(model, imgElement);
-                    };
-                };
-
-                reader.readAsDataURL(file);
-            });
-
-            // Load the model when the page loads
-            window.onload = () => {
-                loadModel();
-            };
-        </script>
-    </div><!-- w3-content -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
