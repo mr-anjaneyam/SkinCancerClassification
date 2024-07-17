@@ -11,7 +11,7 @@ const Classes = {
 async function loadModel() {
     document.getElementById('model-status').textContent = 'Model Loading...';
     document.getElementById('loading-indicator').classList.remove('hidden');
-    const model = await tf.loadLayersModel('/json_model/model.json');
+    const model = await tf.loadLayersModel('json_model/model.json');
     console.log('Model loaded');
     document.getElementById('model-status').textContent = 'Model Loaded';
     document.getElementById('loading-indicator').classList.add('hidden');
