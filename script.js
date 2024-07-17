@@ -81,11 +81,20 @@ window.onload = async () => {
     await loadModel();
 };
 
-// Popup window functionality
+// Popup window handling for Model button
 document.getElementById('model-button').addEventListener('click', () => {
     document.getElementById('popup-modal').classList.remove('hidden');
 });
 
 document.getElementById('close-popup').addEventListener('click', () => {
     document.getElementById('popup-modal').classList.add('hidden');
+});
+
+// Popup window handling for Contact button
+document.getElementById('contact-button').addEventListener('click', () => {
+    document.getElementById('contact-popup').classList.remove('hidden');
+});
+
+document.getElementById('close-contact-popup').addEventListener('click', () => {
+    document.getElementById('contact-popup').classList.add('hidden');
 });

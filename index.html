@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <style>
-        .fa-times{
+        .fa-times {
             color: white;
             opacity: 50%;
         }
@@ -54,7 +54,7 @@
     <div class="mt-8 flex space-x-4">
         <a id="model-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-sliders-h mr-2"></i> Model</a>
         <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-cog mr-2"></i> Training</a>
-        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> About us</a>
+        <a id="contact-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> About us</a>
     </div>
 
     <footer class="mt-8 text-center text-gray-500">
@@ -62,9 +62,9 @@
         <p>&copy; 2024 All rights reserved</p>
     </footer>
 
-    <!-- Popup Window -->
+    <!-- Popup Window for Model -->
     <div id="popup-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black bg-opacity-75">
-        <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg max-w-lg w-full p-6">
+        <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg max-w-xl w-full p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">MobileNet Model</h2>
                 <button id="close-popup" class="text-black hover:text-gray-600">
@@ -84,7 +84,37 @@
                     <a href="https://keras.io/api/applications/mobilenet/" target="_blank"
                         class="hover:text-blue-800 text-blue-600 py-2 px-4 rounded-full flex items-center  font-bold">
                         <i class='fa fa-link mr-2'></i> Link
-                </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Window for Contact -->
+    <div id="contact-popup" class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black bg-opacity-75">
+        <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg max-w-2xl w-full p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold ">About Us</h2>
+                <button id="close-contact-popup" class="text-black hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <img src="/assets/photo.jpg" alt="Person 1" class="rounded-full w-24 h-24 mx-auto">
+                    <h3 class="mt-2 font-bold">Sri Anjaneyam</h3>
+                    <p class="text-sm">Further details about Person 1.</p>
+                </div>
+                <div class="text-center">
+                    <img src="/assets/photo.jpg" alt="Person 2" class="rounded-full w-24 h-24 mx-auto">
+                    <h3 class="mt-2 font-bold">Yashaswini</h3>
+                    <p class="text-sm">Further details about Person 2.</p>
+                </div>
+                <div class="text-center">
+                    <img src="/assets/photo.jpg" alt="Person 3" class="rounded-full w-24 h-24 mx-auto">
+                    <h3 class="mt-2 font-bold">Sai Teja</h3>
+                    <p class="text-sm">Further details about Person 3.</p>
+                </div>
             </div>
         </div>
     </div>
