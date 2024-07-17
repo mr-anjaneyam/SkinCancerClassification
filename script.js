@@ -98,3 +98,7 @@ document.getElementById('contact-button').addEventListener('click', () => {
 document.getElementById('close-contact-popup').addEventListener('click', () => {
     document.getElementById('contact-popup').classList.add('hidden');
 });
+
+window.ondragstart = function() { return false; }
+
+
