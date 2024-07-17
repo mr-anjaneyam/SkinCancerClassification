@@ -17,50 +17,63 @@
             color: white;
             opacity: 50%;
         }
+
+        /* Add blur effect when popup is visible */
+        #main-content.blur {
+            filter: blur(5px);
+        }
+
+        /* Ensure the popup and background blur are above other elements */
+        #popup-modal,
+        #contact-popup {
+            z-index: 100;
+        }
     </style>
 </head>
 
 <body class="bg-black font-roboto h-screen flex flex-col items-center justify-center text-white">
 
-    <a class="text-4xl text-center hover:text-gray-500 font-mono mb-8" href="https://skincancer.srianjaneyam.tech">SKIN
-        CANCER CLASSIFICATION</a>
+    <div id="main-content" class="flex flex-col items-center justify-center text-white">
+        <a class="text-4xl text-center hover:text-gray-500 font-mono mb-8" href="https://skincancer.srianjaneyam.tech">SKIN
+            CANCER CLASSIFICATION</a>
 
-    <div class="w-full max-w-5xl bg-gray-900 rounded-lg shadow-lg p-8 flex flex-col md:flex-row items-center">
+        <div class="w-full max-w-5xl bg-gray-900 rounded-lg shadow-lg p-8 flex flex-col md:flex-row items-center">
 
-        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:mr-8 flex flex-col items-center">
-            <img id="selected-image" class="rounded-lg shadow-md mx-auto max-w-full max-h-80" src="/assets/samplepic.jpg"
-                alt="Image for analysis">
-            <button
-                class="mt-4 bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-full flex items-center  font-bold"
-                onclick="document.getElementById('image-selector').click()">
-                <i class='fas fa-camera mr-2'></i> Upload Skin Lesion
-            </button>
-            <input id="image-selector" type="file" accept="image/*" class="hidden">
-        </div>
-
-        <div class="w-full md:w-1/2 text-center">
-            <h1 id="model-status" class="text-3xl font-oswald font-bold mb-4">Model Loading...</h1>
-
-            <div id="loading-indicator" class="text-white mb-4">
-                <i class="fa fa-spinner fa-spin text-teal-400 text-3xl"></i>
-                <p>Analyzing...</p>
+            <div class="w-full md:w-1/2 mb-6 md:mb-0 md:mr-8 flex flex-col items-center">
+                <img id="selected-image" class="rounded-lg shadow-md mx-auto max-w-full max-h-80" src="/assets/samplepic.jpg"
+                    alt="Image for analysis">
+                <button
+                    class="mt-4 bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-full flex items-center  font-bold"
+                    onclick="document.getElementById('image-selector').click()">
+                    <i class='fas fa-camera mr-2'></i> Upload Skin Lesion
+                </button>
+                <input id="image-selector" type="file" accept="image/*" class="hidden">
             </div>
 
-            <ul id='prediction-list' class='space-y-2 text-left'></ul>
+            <div class="w-full md:w-1/2 text-center">
+                <h1 id="model-status" class="text-3xl font-oswald font-bold mb-4">Model Loading...</h1>
+
+                <div id="loading-indicator" class="text-white mb-4">
+                    <i class="fa fa-spinner fa-spin text-teal-400 text-3xl"></i>
+                    <p>Analyzing...</p>
+                </div>
+
+                <ul id='prediction-list' class='space-y-2 text-left'></ul>
+            </div>
+
         </div>
 
-    </div>
+        <div class="mt-8 flex space-x-4">
+            <a id="model-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-sliders-h mr-2"></i> Model</a>
+            <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-cog mr-2"></i> Training</a>
+            <a id="contact-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> About us</a>
+        </div>
 
-    <div class="mt-8 flex space-x-4">
-        <a id="model-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-sliders-h mr-2"></i> Model</a>
-        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-cog mr-2"></i> Training</a>
-        <a id="contact-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> About us</a>
+        <footer class="mt-8 text-center text-gray-500">
+            <p><a href="https://srianjaneyam.tech" class="text-white hover:text-gray-400">srianjaneyam.tech</a></p>
+            <p>&copy; 2024 All rights reserved</p>
+        </footer>
     </div>
-
-    <footer class="mt-8 text-center text-gray-500">
-        <p><a href="https://srianjaneyam.tech" class="text-white hover:text-gray-400">srianjaneyam.tech</a></p>
-        <p>&copy; 2024 All rights reserved</p>
-    </footer>
 
     <!-- Popup Window for Model -->
     <div id="popup-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black bg-opacity-75">
@@ -101,7 +114,7 @@
             </div>
             <div class="grid grid-cols-3 gap-4">
                 <div class="text-center">
-                    <img src="/assets/photo.jpg" alt="Person 1" class="rounded-full w-24 h-24 mx-auto">
+                    <img src="/assets/me.jpg" alt="Person 1" class="rounded-full w-24 h-24 mx-auto">
                     <h3 class="mt-2 font-bold text-red-600">Sri Anjaneyam</h3>
                     <!-- <p class="text-sm">Further details about Person 1.</p> -->
                     <div class="mt-2 flex justify-center space-x-4">
@@ -120,7 +133,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <img src="/assets/photo.jpg" alt="Person 2" class="rounded-full w-24 h-24 mx-auto">
+                    <img src="/assets/photo2.jpeg" alt="Person 2" class="rounded-full w-24 h-24 mx-auto">
                     <h3 class="mt-2 font-bold text-yellow-600">Yashaswini</h3>
                     <!-- <p class="text-sm">Further details about Person 2.</p> -->
                     <div class="mt-2 flex justify-center space-x-4">
@@ -164,6 +177,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#model-button').click(function () {
+                $('#main-content').addClass('blur');
+                $('#popup-modal').removeClass('hidden');
+            });
+
+            $('#close-popup').click(function () {
+                $('#main-content').removeClass('blur');
+                $('#popup-modal').addClass('hidden');
+            });
+
+            $('#contact-button').click(function () {
+                $('#main-content').addClass('blur');
+                $('#contact-popup').removeClass('hidden');
+            });
+
+            $('#close-contact-popup').click(function () {
+                $('#main-content').removeClass('blur');
+                $('#contact-popup').addClass('hidden');
+            });
+        });
+    </script>
 </body>
 
 </html>
