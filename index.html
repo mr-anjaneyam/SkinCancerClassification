@@ -12,6 +12,12 @@
         integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        .fa-times{
+            color: white;
+            opacity: 50%;
+        }
+    </style>
 </head>
 
 <body class="bg-black font-roboto h-screen flex flex-col items-center justify-center text-white">
@@ -46,9 +52,9 @@
     </div>
 
     <div class="mt-8 flex space-x-4">
-        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-sliders-h mr-2"></i> Model</a>
+        <a id="model-button" class="text-white cursor-pointer hover:text-gray-400"><i class="fas fa-sliders-h mr-2"></i> Model</a>
         <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-cog mr-2"></i> Training</a>
-        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> Contact</a>
+        <a href="#" class="text-white hover:text-gray-400"><i class="fas fa-envelope mr-2"></i> About us</a>
     </div>
 
     <footer class="mt-8 text-center text-gray-500">
@@ -56,6 +62,32 @@
         <p>&copy; 2024 All rights reserved</p>
     </footer>
 
+    <!-- Popup Window -->
+    <div id="popup-modal" class="fixed inset-0 hidden z-50 flex items-center justify-center bg-black bg-opacity-75">
+        <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg max-w-lg w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">MobileNet Model</h2>
+                <button id="close-popup" class="text-black hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div>
+                <p>The MobileNet model is a lightweight, efficient model designed for mobile and embedded vision applications.</p>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>Architecture: Depthwise Separable Convolutions</li>
+                    <li>Input Size: 224x224x3 pixels</li>
+                    <li>Number of Parameters: 4.2 million</li>
+                    <li>Number of Layers: 28</li>
+                    <li>Framework: TensorFlow.js</li>
+                </ul>
+                <div class="flex justify-end mt-4">
+                    <a href="https://keras.io/api/applications/mobilenet/" target="_blank"
+                        class="hover:text-blue-800 text-blue-600 py-2 px-4 rounded-full flex items-center  font-bold">
+                        <i class='fa fa-link mr-2'></i> Link
+                </a>
+            </div>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>

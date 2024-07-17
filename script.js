@@ -80,3 +80,12 @@ document.getElementById('image-selector').addEventListener('change', async event
 window.onload = async () => {
     await loadModel();
 };
+
+// Popup window functionality
+document.getElementById('model-button').addEventListener('click', () => {
+    document.getElementById('popup-modal').classList.remove('hidden');
+});
+
+document.getElementById('close-popup').addEventListener('click', () => {
+    document.getElementById('popup-modal').classList.add('hidden');
+});
