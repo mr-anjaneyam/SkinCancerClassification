@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="scripts.js"></script>
+</head>
+<body class="flex flex-col items-center bg-black min-h-screen py-4">
+    <!-- Login Form -->
+    <div id="loginForm" class="w-full max-w-xs mt-8">
+        <form class="bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4" onsubmit="handleLogin(event)">
+            <h2 class="text-center text-white text-2xl font-bold mb-4 py-16">Login</h2>
+            <div id="error" class="text-red-500 text-xs italic mb-4 hidden">Invalid credentials. Please try again.</div>
+            <div class="mb-6">
+                <label class="block text-gray-400 text-sm font-bold mb-2" for="password">Verify your identity</label>
+                <input class="shadow appearance-none bg-zinc-900 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="" required oninput="checkPassword()" autofocus>
+            </div>
+            <!-- <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign In</button>
+            </div> -->
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="hidden flex flex-col items-center">
+        <h1 class="text-3xl font-bold text-white mb-4 pt-6">MSC Docs</h1>
+        <div class="max-w-full bg-black shadow-md rounded-lg overflow-hidden">
+            <div class="p-4">
+                <table class="min-w-full bg-zinc-900">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 text-zinc-200 border border-zinc-400">S.No</th>
+                            <th class="py-2 px-4 text-zinc-200 border border-zinc-400">Name</th>
+                            <th class="py-2 px-4 text-zinc-200 border border-zinc-400">Size</th>
+                            <th class="py-2 px-4 text-zinc-200 border border-zinc-400">Preview</th>
+                            <th class="py-2 px-4 text-zinc-200 border border-zinc-400">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody id="documentsList">
+                        <!-- Documents will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Preview Popup -->
+        <div id="previewPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-transparent rounded-lg p-12 w-3/4 relative">
+                <button onclick="closePreview()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <iframe id="documentPreview" src="" class="w-full" style="height: 75vh"></iframe>
+                <div class="flex items-center justify-end mt-4">
+                    <a id="downloadLink" href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bottom-0 bg-transparent rounded-lg shadow m-4">
+        <div class="w-full max-w-screen-xl mx-auto md:py-8">
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"><a href="https://srianjaneyam.tech" target="_blank">srianjaneyam.tech</a></span>
+            <hr class="border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024. All Rights Reserved.</span>
+        </div>
+    </footer>
+</body>
+</html>
