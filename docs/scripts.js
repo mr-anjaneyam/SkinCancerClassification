@@ -35,15 +35,24 @@ async function loadDocuments() {
     }
 }
 
-function previewDocument(name) {
+async function previewDocument(name) {
     const previewPopup = document.getElementById('previewPopup');
     const documentPreview = document.getElementById('documentPreview');
     const downloadLink = document.getElementById('downloadLink');
 
-    documentPreview.src = `server/uploads/${name}`;
+    const extension = name.split('.').pop().toLowerCase();
+
+    if (extension === 'pdf' || extension === 'jpg' || extension === 'jpeg' || extension === 'png') {
+        documentPreview.src = `server/uploads/${name}`;
+    } else if (extension === 'docx') {
+        const fileUrl = encodeURIComponent(`https://skincancer.srianjaneyam.tech/docs/server/uploads/${name}`);
+        documentPreview.src = `https://docs.google.com/gview?url=${fileUrl}&embedded=true`;
+    }
+
     downloadLink.href = `server/uploads/${name}`;
     previewPopup.classList.remove('hidden');
 }
+
 
 function closePreview() {
     const previewPopup = document.getElementById('previewPopup');
