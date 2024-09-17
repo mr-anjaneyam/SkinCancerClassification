@@ -60,10 +60,9 @@ function displayPredictions(predictionArray) {
     });
 }
 
-document.getElementById('image-selector').addEventListener('change', async event => {
-    const file = event.target.files[0];
+// File selection (from input or drag-and-drop)
+function handleImage(file) {
     const reader = new FileReader();
-
     reader.onload = async () => {
         const imgElement = document.getElementById('selected-image');
         imgElement.src = reader.result;
@@ -72,8 +71,47 @@ document.getElementById('image-selector').addEventListener('change', async event
             classifyImage(model, imgElement);
         };
     };
-
     reader.readAsDataURL(file);
+}
+
+// Drag and drop functionality
+let dropArea = document.getElementById('drop-area');
+let imageSelector = document.getElementById('image-selector');
+
+// Prevent default behaviors for drag events
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+// Highlight drop area on drag
+['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, () => dropArea.classList.add('border-teal-400'));
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, () => dropArea.classList.remove('border-teal-400'));
+});
+
+// Handle drop
+dropArea.addEventListener('drop', (e) => {
+    let dt = e.dataTransfer;
+    let files = dt.files;
+    if (files.length > 0) {
+        handleImage(files[0]);
+    }
+});
+
+// Handle file selection through button click
+imageSelector.addEventListener('change', async event => {
+    const file = event.target.files[0];
+    if (file) {
+        handleImage(file);
+    }
 });
 
 // Load the model when the page loads
@@ -99,25 +137,25 @@ document.getElementById('close-contact-popup').addEventListener('click', () => {
     document.getElementById('contact-popup').classList.add('hidden');
 });
 
+// Prevent default behavior for right-click and certain key combos
 document.addEventListener('contextmenu', event => event.preventDefault());
-document.onkeydown = function(e) {
-  if(e.keyCode == 123) {
-     return false;
-  }
-  if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-     return false;
-  }
-  if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-     return false;
-  }
-  if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-     return false;
-  }
-  if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-     return false;
-  }
-}
+document.onkeydown = function (e) {
+    if (e.keyCode == 123) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+    }
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+    }
+};
 
-window.ondragstart = function() { return false; }
-
-
+// Prevent default drag behavior outside drop area
+window.ondragstart = function () { return false; };
