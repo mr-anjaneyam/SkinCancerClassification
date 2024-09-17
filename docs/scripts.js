@@ -61,13 +61,14 @@ function closePreview() {
 
 document.addEventListener('DOMContentLoaded', loadDocuments);
 
-const correctPassword = "msc";
+const correctHash = "b1dd60e60f5f05b3b25fbe1b7ac6e0afbdceaa4d726e58f29966d02fb277c0d4"; 
 
 function handleLogin(event) {
     event.preventDefault();
     const inputPassword = document.getElementById("password").value;
+    const inputHash = sha256(inputPassword);
 
-    if (inputPassword === correctPassword) {
+    if (inputHash === correctHash) {
         document.getElementById("loginForm").classList.add("hidden");
         document.getElementById("mainContent").classList.remove("hidden");
     } else {
@@ -75,10 +76,11 @@ function handleLogin(event) {
     }
 }
 
+
 function checkPassword() {
     const inputPassword = document.getElementById("password").value;
-
-    if (inputPassword === correctPassword) {
+    const inputHash = sha256(inputPassword);
+    if (inputHash === correctHash) {
         document.getElementById("loginForm").classList.add("hidden");
         document.getElementById("mainContent").classList.remove("hidden");
     } else {
@@ -87,9 +89,9 @@ function checkPassword() {
 }
 
 // Disable right-click
-document.addEventListener('contextmenu', function (event) {
-    event.preventDefault();
-});
+// document.addEventListener('contextmenu', function (event) {
+//     event.preventDefault();
+// });
 
 // Disable drag and drop
 document.addEventListener('dragstart', function (event) {
